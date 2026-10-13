@@ -43,6 +43,15 @@ Content-Type: application/json
 - The token is a fine-grained personal access token limited to this repository with only **Actions: Read and write** (Metadata: Read is added automatically). It never appears in this repository. Renew it before it expires and update the cron job.
 - If the external scheduler stops, the 6-hourly `schedule` still refreshes the feed, and the app shows a stale-data notice when the feed is older than 2 hours.
 
+### Run guard (minimum interval)
+
+The first job, `guard`, skips `build` and `deploy` when another run of this workflow has built within the last **10 minutes** (`python -m launch_feed guard`, see `src/launch_feed/run_guard.py`). This protects the Launch Library 2 free tier (15 requests per hour) if the external scheduler is misconfigured or the endpoint is called many times.
+
+- Runs whose `build` job was skipped, cancelled, or has not started yet are not counted.
+- Runs are serialized by `concurrency: pages`, so a burst of calls results in at most one running and one pending run; the pending run sees the previous build and is skipped.
+- If the run history cannot be read, the guard skips the build (fail closed) and shows a `run guard failed` warning annotation. The next trigger tries again.
+- To build anyway (for example right after fixing something), run the workflow manually with **force** turned on.
+
 ## Data source and attribution
 
 Launch data comes from The Space Devs / Launch Library 2 (<https://thespacedevs.com/llapi>).
