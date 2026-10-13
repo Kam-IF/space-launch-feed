@@ -23,7 +23,25 @@ feed stays online.
 
 ### Freshness and caching
 
-The workflow runs every 15 minutes (cron `8,23,38,53 * * * *`), but GitHub may delay scheduled runs by several minutes. GitHub Pages serves files with `Cache-Control: max-age=600`. In practice the feed can be up to about 25-30 minutes old. Consumers should check `generatedAt` rather than assume the feed is fresh.
+The workflow is started every 15 minutes by an external scheduler that calls the `workflow_dispatch` API (see [External trigger](#external-trigger)). GitHub's own `schedule` fired only rarely for this repository (measured 2026-10-13: one run in more than 4 hours with a 15-minute cron), so it is kept only as a backup every 6 hours (cron `17 */6 * * *`). GitHub Pages serves files with `Cache-Control: max-age=600`. In practice the feed can be up to about 25-30 minutes old. Consumers should check `generatedAt` rather than assume the feed is fresh.
+
+### External trigger
+
+An external cron service (cron-job.org) sends this request every 15 minutes (minutes 8, 23, 38, 53):
+
+```text
+POST https://api.github.com/repos/Kam-IF/space-launch-feed/actions/workflows/publish-feed.yml/dispatches
+Accept: application/vnd.github+json
+Authorization: Bearer <fine-grained token>
+X-GitHub-Api-Version: 2022-11-28
+Content-Type: application/json
+
+{"ref":"main"}
+```
+
+- A successful call returns HTTP 204 with an empty body.
+- The token is a fine-grained personal access token limited to this repository with only **Actions: Read and write** (Metadata: Read is added automatically). It never appears in this repository. Renew it before it expires and update the cron job.
+- If the external scheduler stops, the 6-hourly `schedule` still refreshes the feed, and the app shows a stale-data notice when the feed is older than 2 hours.
 
 ## Data source and attribution
 
@@ -122,8 +140,8 @@ Countries come from LL2 by default. When LL2 has wrong or missing country data, 
 3. Optional: add a repository secret `LL2_API_KEY` (Settings -> Secrets and variables -> Actions). Keys are obtained through The Space Devs' Patreon and are sent as `Authorization: Token <key>`. Without a key the free rate limit applies.
 4. Run the `publish-feed` workflow manually from the Actions tab (Run workflow, endpoint `prod`), then open `https://kam-if.github.io/space-launch-feed/v1/launches.json` to confirm it is served.
 5. Enable failure notifications for GitHub Actions in your own notification settings (Settings -> Notifications -> Actions). Notifications for scheduled runs go to the user who created the workflow, or the user who last changed or re-enabled its cron schedule (see [GitHub's documentation](https://docs.github.com/en/actions/concepts/workflows-and-actions/notifications-for-workflow-runs)), so check that this is you.
-6. **Required:** every 50 days, check in the Actions tab that the schedule is still running, and re-enable the workflow if it has stopped. GitHub disables scheduled workflows in a public repository after 60 days without repository activity. The `keepalive` job runs `gh workflow enable publish-feed.yml` on each scheduled run, but GitHub does not document that this resets the timer, so this manual check is mandatory. If `keepalive` fails, the run summary shows a `keepalive failed` warning annotation (the rest of the workflow is not affected); investigate when you see it.
-7. If runs fail with HTTP 429 (exit code 3) frequently, obtain an API key and add it as `LL2_API_KEY` (step 3). Run the workflow manually (workflow_dispatch) at most once per hour: scheduled runs (4 per hour) use up to 3 requests each, i.e. 12, and the free tier allows 15 requests per hour per IP.
+6. **Required:** every 50 days, check in the Actions tab that the schedule is still running, and re-enable the workflow if it has stopped. GitHub disables scheduled workflows in a public repository after 60 days without repository activity. The `keepalive` job runs `gh workflow enable publish-feed.yml` on each scheduled or dispatched run, but GitHub does not document that this resets the timer, so this manual check is mandatory. If `keepalive` fails, the run summary shows a `keepalive failed` warning annotation (the rest of the workflow is not affected); investigate when you see it.
+7. If runs fail with HTTP 429 (exit code 3) frequently, obtain an API key and add it as `LL2_API_KEY` (step 3). The external trigger (4 runs per hour) uses up to 3 requests per run, i.e. 12, plus at most 3 for a backup `schedule` run, and the free tier allows 15 requests per hour per IP. Avoid extra manual runs in the same hour.
 8. Before monetizing the app, contact The Space Devs (support@thespacedevs.com) and ask whether commercial use and redistribution of the data is permitted. If redistribution is not allowed, stop publishing by disabling the `publish-feed` workflow (Actions -> publish-feed -> Disable workflow).
 9. GitHub Pages has a soft bandwidth limit of 100 GB per month. The feed is about 450 KB uncompressed (roughly 90 KB gzipped) at the 300-launch maximum, so one fetch per day from 10,000 users is about 27 GB per month. If usage grows beyond that, consider a CDN or moving hosting elsewhere.
 

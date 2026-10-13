@@ -1,12 +1,14 @@
 # 打ち上げフィード（v1/launches.json と index.html）を生成し、GitHub Pages に公開する。
-# 15 分ごとの定期実行（schedule）と手動実行（workflow_dispatch）で動く。
+# 主な起動は外部（cron-job.org）からの 15 分ごとの workflow_dispatch（README「External trigger」）。
+# GitHub の schedule はまれにしか動かなかったため（2026-10-13 実測: 15 分ごとの設定で 4 時間以上動かない）、
+# 6 時間ごとの予備としてだけ残す。
 # 生成に失敗した場合は artifact が作られず deploy もスキップされるため、前回の公開がそのまま残る。
 # 事前設定: リポジトリの Settings > Pages > Source を「GitHub Actions」にする必要がある。
 name: publish-feed
 
 on:
   schedule:
-    - cron: '8,23,38,53 * * * *'
+    - cron: '17 */6 * * *'
   workflow_dispatch:
     inputs:
       endpoint:
@@ -66,12 +68,12 @@ jobs:
         uses: actions/deploy-pages@v5
 
   # 60 日間の無活動による schedule 停止への対策。
-  # 実行のたびに workflow を enable する。これで 60 日タイマーがリセットされる公式保証はない。
+  # 実行のたびに workflow を enable する（無効化されると外部からの workflow_dispatch も失敗するため、手動・外部の起動でも行う）。これで 60 日タイマーがリセットされる公式保証はない。
   # README の 50 日ごとの確認を必須の運用とする。
   # 失敗時は ::warning:: 注釈を出してこのジョブだけ失敗させる。continue-on-error により
   # ワークフロー全体は失敗扱いにならない。build の成否とは独立に動く（needs を付けない）。
   keepalive:
-    if: github.event_name == 'schedule'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     continue-on-error: true
