@@ -12,7 +12,7 @@ license = { text = "MIT" }
 dependencies = ["jsonschema>=4.23,<5"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8,<9"]
+dev = ["pytest>=8,<10"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
