@@ -1,0 +1,80 @@
+# 打ち上げフィード（v1/launches.json と index.html）を生成し、GitHub Pages に公開する。
+# 15 分ごとの定期実行（schedule）と手動実行（workflow_dispatch）で動く。
+# 生成に失敗した場合は artifact が作られず deploy もスキップされるため、前回の公開がそのまま残る。
+# 事前設定: リポジトリの Settings > Pages > Source を「GitHub Actions」にする必要がある。
+name: publish-feed
+
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+    inputs:
+      endpoint:
+        description: 'Launch Library 2 のエンドポイント'
+        type: choice
+        options:
+          - prod
+          - dev
+        default: prod
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+      - name: Build feed
+        env:
+          # schedule 時は inputs が空なので prod にする。式は run に直接埋め込まず env 経由で渡す。
+          ENDPOINT: ${{ github.event_name == 'workflow_dispatch' && inputs.endpoint || 'prod' }}
+          LL2_API_KEY: ${{ secrets.LL2_API_KEY }}
+        run: python -m launch_feed build --out _site --endpoint "${ENDPOINT}"
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
+
+  # 60 日間の無活動による schedule 停止への対策。
+  # 実行のたびに workflow を enable する。これでタイマーがリセットされる公式保証はない。
+  # README の運用手順も参照。build の成否とは独立に動く（needs を付けない）。
+  keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    continue-on-error: true
+    permissions:
+      actions: write
+    steps:
+      - name: Enable workflow
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow enable publish-feed.yml -R "$GITHUB_REPOSITORY"
