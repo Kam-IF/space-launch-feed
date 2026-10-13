@@ -164,3 +164,54 @@ def test_api_key_not_in_exception_message(stub: Stub) -> None:
     with pytest.raises(RateLimitedError) as info2:
         Ll2HttpFetcher(stub.base_url, key).fetch_upcoming_page(offset=0)
     assert key not in str(info2.value)
+
+
+def test_response_over_limit_is_upstream_error(stub: Stub, monkeypatch: pytest.MonkeyPatch) -> None:
+    from launch_feed import ll2_client
+
+    monkeypatch.setattr(ll2_client, "MAX_RESPONSE_BYTES", 64)
+    stub.body = json.dumps({"count": 0, "next": None, "results": ["x" * 100]}).encode()
+    with pytest.raises(UpstreamError, match="exceeds"):
+        Ll2HttpFetcher(stub.base_url, None).fetch_upcoming_page(offset=0)
+
+
+def test_response_at_limit_is_accepted(stub: Stub, monkeypatch: pytest.MonkeyPatch) -> None:
+    from launch_feed import ll2_client
+
+    stub.body = json.dumps({"count": 0, "next": None, "results": []}).encode()
+    monkeypatch.setattr(ll2_client, "MAX_RESPONSE_BYTES", len(stub.body))
+    assert Ll2HttpFetcher(stub.base_url, None).fetch_upcoming_page(offset=0)["count"] == 0
+
+
+def test_authorization_not_forwarded_on_redirect(stub: Stub) -> None:
+    other = Stub()
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self) -> None:  # noqa: N802
+            other.requests.append({"path": self.path, "headers": dict(self.headers)})
+            body = json.dumps({"count": 0, "next": None, "results": []}).encode()
+            self.send_response(200)
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def log_message(self, *args: Any) -> None:
+            pass
+
+    server = HTTPServer(("127.0.0.1", 0), Handler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        stub.status = 302
+        stub.headers = {"Location": f"http://127.0.0.1:{server.server_address[1]}/final"}
+        page = Ll2HttpFetcher(stub.base_url, "secret-key-123").fetch_upcoming_page(offset=0)
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
+    assert page["count"] == 0
+    first = {k.lower(): v for k, v in stub.requests[0]["headers"].items()}
+    assert first["authorization"] == "Token secret-key-123"
+    assert len(other.requests) == 1
+    redirected = {k.lower() for k in other.requests[0]["headers"]}
+    assert "authorization" not in redirected

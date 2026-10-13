@@ -100,3 +100,14 @@ def test_at_most_five_errors_with_total() -> None:
     assert msg.count("/webcastLive") == 5
     assert "/launches/0/webcastLive" in msg
     assert "/launches/6/webcastLive" not in msg
+
+
+@pytest.mark.parametrize("content", [None, "{not json", '{"type": 12}'])
+def test_broken_schema_is_config_error(tmp_path: Path, content: str | None) -> None:
+    from launch_feed.errors import ConfigError
+
+    schema = tmp_path / "schema.json"
+    if content is not None:
+        schema.write_text(content, encoding="utf-8")
+    with pytest.raises(ConfigError):
+        validate_feed(make_feed(), schema)

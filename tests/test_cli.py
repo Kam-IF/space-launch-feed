@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+import shutil
 from pathlib import Path
 
 import pytest
 from conftest import FIXTURES_DIR
 
+from launch_feed import pipeline
 from launch_feed.__main__ import main
 from launch_feed.errors import ConfigError, UpstreamError
 from launch_feed.settings import DirectoryFetcher, resolve_settings
@@ -70,3 +72,33 @@ def test_directory_fetcher_missing_page() -> None:
     assert fetcher.fetch_upcoming_page(offset=0)["results"]
     with pytest.raises(UpstreamError):
         fetcher.fetch_upcoming_page(offset=200)
+
+
+def test_broken_schema_is_exit_2(tmp_path: Path, capsys) -> None:
+    out = tmp_path / "dist"
+    repo = tmp_path / "repo"
+    shutil.copytree(REPO / "config", repo / "config")
+    (repo / "schema").mkdir()
+    (repo / "schema" / "launches.v1.schema.json").write_text("{broken", encoding="utf-8")
+    code = main(["build", "--out", str(out), "--input-dir", str(RUN_DIR), "--repo-root", str(repo)])
+    assert code == 2
+    assert not out.exists()
+    assert len(capsys.readouterr().err.strip().splitlines()) == 1
+
+
+def test_unexpected_error_is_exit_1(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys, caplog
+) -> None:
+    def boom(*args, **kwargs):
+        raise OSError("disk full")
+
+    monkeypatch.chdir(REPO)
+    monkeypatch.setattr(pipeline.json, "dumps", boom)
+    out = tmp_path / "dist"
+    code = main(["build", "--out", str(out), "--input-dir", str(RUN_DIR)])
+    assert code == 1
+    assert not out.exists()
+    err = capsys.readouterr().err
+    assert "unexpected error" in err and "disk full" in err
+    assert len(err.strip().splitlines()) == 1 or "Traceback" in err
+    assert any(r.exc_info for r in caplog.records)  # スタックトレースはログに残る

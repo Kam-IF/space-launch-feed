@@ -14,6 +14,7 @@ from launch_feed.countries import CountryOverrides
 from launch_feed import __main__ as cli
 from launch_feed import pipeline
 from launch_feed.errors import (
+    ConfigError,
     EmptyFeedError,
     RateLimitedError,
     UpstreamError,
@@ -222,3 +223,48 @@ def test_write_failure_leaves_no_out_dir_or_temp(tmp_path: Path, monkeypatch) ->
         _run(FakeFetcher(_pages()), out)
     assert not out.exists()
     assert _siblings(out) == []
+
+
+def test_unrelated_existing_out_dir_is_refused(tmp_path: Path) -> None:
+    out = tmp_path / "dist"
+    (out / "v1").mkdir(parents=True)
+    (out / "v1" / "launches.json").write_text("old", encoding="utf-8")
+    (out / "precious.txt").write_text("keep me", encoding="utf-8")
+    before = _snapshot(out)
+    with pytest.raises(ConfigError):
+        _run(FakeFetcher(_pages()), out)
+    assert _snapshot(out) == before
+    assert _siblings(out) == ["dist"]
+
+
+def test_unrelated_file_inside_v1_is_refused(tmp_path: Path) -> None:
+    out = tmp_path / "dist"
+    (out / "v1").mkdir(parents=True)
+    (out / "v1" / "launches.json").write_text("old", encoding="utf-8")
+    (out / "v1" / "other.json").write_text("keep me", encoding="utf-8")
+    with pytest.raises(ConfigError):
+        _run(FakeFetcher(_pages()), out)
+    assert (out / "v1" / "other.json").read_text(encoding="utf-8") == "keep me"
+
+
+def test_out_dir_that_is_a_file_is_refused(tmp_path: Path) -> None:
+    out = tmp_path / "dist"
+    out.write_text("a file", encoding="utf-8")
+    with pytest.raises(ConfigError):
+        _run(FakeFetcher(_pages()), out)
+    assert out.read_text(encoding="utf-8") == "a file"
+
+
+def test_empty_existing_out_dir_is_writable(tmp_path: Path) -> None:
+    out = tmp_path / "dist"
+    out.mkdir()
+    _run(FakeFetcher(_pages()), out)
+    assert (out / "v1" / "launches.json").is_file()
+    assert (out / "index.html").is_file()
+
+
+def test_previous_output_only_is_replaced_twice(tmp_path: Path) -> None:
+    out = tmp_path / "dist"
+    _run(FakeFetcher(_pages()), out)
+    _run(FakeFetcher(_pages()), out)
+    assert sorted(p.name for p in out.iterdir()) == ["index.html", "v1"]

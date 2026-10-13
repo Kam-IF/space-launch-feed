@@ -22,6 +22,7 @@ from launch_feed.pipeline import RunSummary, run
 from launch_feed.settings import DirectoryFetcher, resolve_settings
 
 EXIT_OK = 0
+EXIT_UNEXPECTED = 1
 EXIT_CONFIG = 2
 EXIT_RATE_LIMITED = 3
 EXIT_UPSTREAM = 4
@@ -67,7 +68,7 @@ def _failure(exc: FeedError) -> tuple[int, str]:
         return EXIT_VALIDATION, f"validation failed: {exc}"
     if isinstance(exc, EmptyFeedError):
         return EXIT_EMPTY, f"empty feed: {exc}"
-    return 1, f"error: {exc}"
+    return EXIT_UNEXPECTED, f"error: {exc}"
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -92,6 +93,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         code, text = _failure(exc)
         print(" ".join(text.split()), file=sys.stderr)
         return code
+    except Exception as exc:  # noqa: BLE001 - 最後の砦。想定外のエラーは終了コード 1
+        logging.getLogger(__name__).exception("unexpected error")
+        print(" ".join(f"unexpected error: {type(exc).__name__}: {exc}".split()), file=sys.stderr)
+        return EXIT_UNEXPECTED
     _print_summary(summary)
     return EXIT_OK
 

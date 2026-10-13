@@ -7,6 +7,7 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from typing import Any
+from urllib.parse import urlsplit
 
 from launch_feed.countries import CountryOverrides, resolve_countries
 
@@ -41,7 +42,6 @@ NET_PRECISIONS: dict[int, str] = {
 }
 
 _UNKNOWN = "unknown"
-_HTTP_PREFIXES = ("http://", "https://")
 
 
 @dataclass(frozen=True)
@@ -86,7 +86,10 @@ def format_utc(value: Any) -> str | None:
         return None
     if parsed.tzinfo is None:
         return None
-    return parsed.astimezone(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+    try:
+        return parsed.astimezone(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+    except (ValueError, OverflowError):  # 例: 9999-12-31T23:30:00-01:00
+        return None
 
 
 def _status(launch: Mapping[str, Any]) -> dict[str, object]:
@@ -103,8 +106,25 @@ def _net_precision(launch: Mapping[str, Any]) -> str:
     return NET_PRECISIONS.get(precision_id, _UNKNOWN)
 
 
+def _normalize_http_url(value: Any) -> str | None:
+    """http(s) の URL を返す（スキームは小文字化、前後空白は除去）。不正なら None。"""
+    if not isinstance(value, str):
+        return None
+    url = value.strip()
+    if not url or any(ch.isspace() for ch in url):
+        return None
+    try:
+        parts = urlsplit(url)
+        host = parts.hostname
+    except ValueError:
+        return None
+    if parts.scheme not in ("http", "https") or not host:
+        return None
+    return parts.scheme + url[len(parts.scheme) :]
+
+
 def _links(value: Any) -> list[dict[str, object]]:
-    """リンク配列を変換する。http(s) 以外の URL は捨てる。priority があれば昇順。"""
+    """リンク配列を変換する。http(s) 以外・ホストなし・空白を含む URL は捨てる。スキームは小文字へ正規化する。priority があれば昇順。"""
     if not isinstance(value, list):
         return []
     entries = [e for e in value if isinstance(e, Mapping)]
@@ -117,8 +137,8 @@ def _links(value: Any) -> list[dict[str, object]]:
         entries.sort(key=priority)  # 安定ソート。priority なしは末尾
     links: list[dict[str, object]] = []
     for entry in entries:
-        url = entry.get("url")
-        if not isinstance(url, str) or not url.lower().startswith(_HTTP_PREFIXES):
+        url = _normalize_http_url(entry.get("url"))
+        if url is None:
             continue
         source = entry.get("source")
         title = entry.get("title")

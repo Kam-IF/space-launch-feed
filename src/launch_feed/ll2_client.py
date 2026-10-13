@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 USER_AGENT = "space-launch-feed (+https://github.com/kamkam/space-launch-feed)"
 PAGE_SIZE = 100
+MAX_RESPONSE_BYTES = 20 * 1024 * 1024  # detailed 1 ページ（100 件）の実測は約 2.7MB
 
 
 class Fetcher(Protocol):
@@ -61,8 +62,6 @@ class Ll2HttpFetcher:
 
     def _headers(self) -> dict[str, str]:
         headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
-        if self._api_key:
-            headers["Authorization"] = f"Token {self._api_key}"
         return headers
 
     def fetch_upcoming_page(self, *, offset: int) -> Mapping[str, Any]:
@@ -70,14 +69,18 @@ class Ll2HttpFetcher:
 
         Raises:
             RateLimitedError: HTTP 429。
-            UpstreamError: タイムアウト、接続失敗、5xx、その他の非 2xx、JSON でない応答。
+            UpstreamError: タイムアウト、接続失敗、5xx、その他の非 2xx、JSON でない応答、
+                応答サイズが MAX_RESPONSE_BYTES 超過。
         """
         url = self._build_url(offset)
         request = urllib.request.Request(url, headers=self._headers(), method="GET")
+        if self._api_key:
+            # リダイレクト先（別ホスト）へ資格情報を引き継がない
+            request.add_unredirected_header("Authorization", f"Token {self._api_key}")
         logger.info("LL2 へリクエスト: offset=%d", offset)
         try:
             with urllib.request.urlopen(request, timeout=self._timeout_s) as response:
-                body = response.read()
+                body = response.read(MAX_RESPONSE_BYTES + 1)
         except urllib.error.HTTPError as exc:
             if exc.code == 429:
                 retry_after = _parse_retry_after(exc.headers.get("Retry-After"))
@@ -97,6 +100,8 @@ class Ll2HttpFetcher:
         except (OSError, http.client.HTTPException) as exc:
             raise UpstreamError(f"LL2 connection failed: {type(exc).__name__}") from None
 
+        if len(body) > MAX_RESPONSE_BYTES:
+            raise UpstreamError(f"LL2 response exceeds {MAX_RESPONSE_BYTES} bytes")
         try:
             data = json.loads(body)
         except (ValueError, UnicodeDecodeError):

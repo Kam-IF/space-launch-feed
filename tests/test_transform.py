@@ -201,7 +201,7 @@ def test_links_case_insensitive_scheme_and_field_types(base: dict[str, Any]) -> 
         {"url": "//example.com"},
     ]
     assert one(base)["videoUrls"] == [
-        {"url": "HTTPS://Example.com/A", "title": None, "source": None}
+        {"url": "https://Example.com/A", "title": None, "source": None}
     ]
     base["vid_urls"] = {"url": "https://x"}
     assert one(base)["videoUrls"] == []
@@ -241,3 +241,45 @@ def test_real_data_transforms_and_validates(load_fixture: Loader) -> None:
         "launches": result.launches,
     }
     validate_feed(feed, SCHEMA_PATH)
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("HTTPS://example.com/a", "https://example.com/a"),
+        ("Http://x", "http://x"),
+        ("  https://example.com/a  ", "https://example.com/a"),
+        ("HtTpS://Example.com/Path?Q=A", "https://Example.com/Path?Q=A"),
+        ("   ", None),
+        ("https://", None),
+        ("HTTP://", None),
+        ("https:// example.com", None),
+        ("https://exa mple.com", None),
+        ("ftp://example.com", None),
+    ],
+)
+def test_links_scheme_is_lowercased_and_invalid_dropped(
+    base: dict[str, Any], raw: str, expected: str | None
+) -> None:
+    base["info_urls"] = [{"url": raw}]
+    urls = [x["url"] for x in one(base)["infoUrls"]]
+    assert urls == ([] if expected is None else [expected])
+
+
+def test_normalized_links_pass_schema(base: dict[str, Any]) -> None:
+    base["info_urls"] = [{"url": "HTTPS://example.com/a"}]
+    assert one(base)["infoUrls"][0]["url"].startswith("https://")
+
+
+@pytest.mark.parametrize("raw", ["9999-12-31T23:30:00-01:00", "0001-01-01T00:00:00+09:00"])
+def test_format_utc_overflow_is_none(raw: str) -> None:
+    assert format_utc(raw) is None
+
+
+def test_overflowing_datetimes_net_excluded_optional_null(base: dict[str, Any]) -> None:
+    base["window_start"] = "9999-12-31T23:30:00-01:00"
+    assert one(base)["windowStart"] is None
+    base["net"] = "9999-12-31T23:30:00-01:00"
+    result = transform_launches([base], CountryOverrides.empty())
+    assert result.launches == []
+    assert len(result.skipped) == 1

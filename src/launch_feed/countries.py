@@ -48,12 +48,11 @@ def _parse_table(name: str, raw: Any) -> dict[int, tuple[str, ...]]:
         raise ConfigError(f"country_overrides: '{name}' must be an object")
     table: dict[int, tuple[str, ...]] = {}
     for key, codes in raw.items():
-        try:
-            entity_id = int(key)
-        except (TypeError, ValueError):
+        if not (isinstance(key, str) and key.isascii() and key.isdecimal()):
             raise ConfigError(
                 f"country_overrides: '{name}' key {key!r} is not a numeric ID"
-            ) from None
+            )
+        entity_id = int(key)
         if not isinstance(codes, list) or not all(isinstance(c, str) for c in codes):
             raise ConfigError(
                 f"country_overrides: '{name}.{key}' must be an array of strings"

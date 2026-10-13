@@ -10,9 +10,9 @@ from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator
-from jsonschema.exceptions import ValidationError
+from jsonschema.exceptions import SchemaError, ValidationError
 
-from launch_feed.errors import EmptyFeedError, ValidationFailedError
+from launch_feed.errors import ConfigError, EmptyFeedError, ValidationFailedError
 
 logger = logging.getLogger(__name__)
 
@@ -22,8 +22,16 @@ MAX_REPORTED_ERRORS = 5
 @lru_cache(maxsize=None)
 def _load_validator(schema_path: Path) -> Draft202012Validator:
     """スキーマを読み込んで検証器を作る（path ごとにキャッシュ）。"""
-    schema = json.loads(schema_path.read_text(encoding="utf-8"))
-    Draft202012Validator.check_schema(schema)
+    try:
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    except OSError as exc:
+        raise ConfigError(f"cannot read schema {schema_path}: {exc}") from exc
+    except ValueError as exc:  # UnicodeDecodeError / JSONDecodeError を含む
+        raise ConfigError(f"schema {schema_path} is not valid JSON: {exc}") from exc
+    try:
+        Draft202012Validator.check_schema(schema)
+    except SchemaError as exc:
+        raise ConfigError(f"schema {schema_path} is not a valid JSON Schema: {exc.message}") from exc
     return Draft202012Validator(schema)
 
 
@@ -38,7 +46,7 @@ def validate_feed(feed: Mapping[str, Any], schema_path: Path) -> None:
 
     launches が空配列なら EmptyFeedError（スキーマ検証より前に判定）。
     スキーマに適合しなければ ValidationFailedError（先頭最大 5 件と総件数を含む）。
-    スキーマの読込失敗はそのまま例外を送出する。
+    スキーマの読込失敗（ファイルなし・JSON 不正・スキーマ不正）は ConfigError。
     """
     launches = feed.get("launches")
     if isinstance(launches, list) and len(launches) == 0:

@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any
 
 from launch_feed.countries import CountryOverrides
-from launch_feed.errors import UpstreamError
+from launch_feed.errors import ConfigError, UpstreamError
 from launch_feed.ll2_client import Fetcher
 from launch_feed.transform import TransformResult, format_utc, transform_launches
 from launch_feed.validate import validate_feed
@@ -55,6 +55,8 @@ def fetch_all(fetcher: Fetcher, *, page_size: int = 100, max_pages: int = 3) -> 
     """offset 0 から page_size ずつ、next が無くなるか max_pages まで取得する。
 
     1 ページでも失敗したら例外をそのまま上げる。results が配列でなければ UpstreamError。
+    offset ページングのため、取得中にデータが更新されると取りこぼし・重複が起こりうる
+    （重複は id で排除。取りこぼしは仕様上の許容事項で、次回の実行で解消する）。
     """
     results: list[Any] = []
     total: int | None = None
@@ -129,9 +131,40 @@ def _index_html() -> str:
     )
 
 
+_GENERATED_FILES = {"index.html", "v1"}
+
+
+def _is_previous_output(out_dir: Path) -> bool:
+    """out_dir が空、または前回の生成物（index.html と v1/launches.json）だけか。"""
+    if out_dir.is_symlink() or not out_dir.is_dir():
+        return False
+    entries = {p.name: p for p in out_dir.iterdir()}
+    if not set(entries) <= _GENERATED_FILES:
+        return False
+    index = entries.get("index.html")
+    if index is not None and (index.is_symlink() or not index.is_file()):
+        return False
+    v1 = entries.get("v1")
+    if v1 is not None:
+        if v1.is_symlink() or not v1.is_dir():
+            return False
+        children = list(v1.iterdir())
+        if any(c.name != "launches.json" or c.is_symlink() or not c.is_file() for c in children):
+            return False
+    return True
+
+
 def write_output(feed: Mapping[str, Any], out_dir: Path) -> Path:
-    """一時ディレクトリに全部書いてから out_dir へ入れ替える。launches.json のパスを返す。"""
+    """一時ディレクトリに全部書いてから out_dir へ入れ替える。launches.json のパスを返す。
+
+    既存の out_dir が空でも前回の生成物だけでもなければ ConfigError（何も消さない）。"""
     out_dir = Path(out_dir)
+    if out_dir.exists() or out_dir.is_symlink():
+        if not _is_previous_output(out_dir):
+            raise ConfigError(
+                f"output directory {out_dir} exists and is not empty or a previous feed output; "
+                "refusing to overwrite it"
+            )
     parent = out_dir.parent
     parent.mkdir(parents=True, exist_ok=True)
     tmp = Path(tempfile.mkdtemp(prefix=f".{out_dir.name}.tmp-", dir=parent))
@@ -143,10 +176,7 @@ def write_output(feed: Mapping[str, Any], out_dir: Path) -> Path:
         (tmp / "index.html").write_text(_index_html(), encoding="utf-8")
         tmp.chmod(0o755)
         if out_dir.exists():
-            if out_dir.is_dir() and not out_dir.is_symlink():
-                shutil.rmtree(out_dir)
-            else:
-                out_dir.unlink()
+            shutil.rmtree(out_dir)
         tmp.rename(out_dir)
     except BaseException:
         shutil.rmtree(tmp, ignore_errors=True)
