@@ -11,7 +11,7 @@ feed stays online.
 
 ## Feed
 
-- URL: `https://<owner>.github.io/space-launch-feed/v1/launches.json` (`<owner>` is the owner of this repository)
+- URL: `https://kam-if.github.io/space-launch-feed/v1/launches.json`
 - Schema: [`schema/launches.v1.schema.json`](schema/launches.v1.schema.json) (top-level fields: `schemaVersion`, `generatedAt`, `source`, `launches`)
 - Times are UTC (ISO 8601). Each launch carries related country codes (ISO 3166-1 alpha-2) per role: `launchSite`, `launchProvider`, `payloadOperator`.
 - The site root (`index.html`) only links to the feed.
@@ -120,7 +120,7 @@ Countries come from LL2 by default. When LL2 has wrong or missing country data, 
 1. Create a **public** GitHub repository named `space-launch-feed` and push this repository to it.
 2. In Settings -> Pages, set Source to **GitHub Actions**.
 3. Optional: add a repository secret `LL2_API_KEY` (Settings -> Secrets and variables -> Actions). Keys are obtained through The Space Devs' Patreon and are sent as `Authorization: Token <key>`. Without a key the free rate limit applies.
-4. Run the `publish-feed` workflow manually from the Actions tab (Run workflow, endpoint `prod`), then open `https://<owner>.github.io/space-launch-feed/v1/launches.json` to confirm it is served.
+4. Run the `publish-feed` workflow manually from the Actions tab (Run workflow, endpoint `prod`), then open `https://kam-if.github.io/space-launch-feed/v1/launches.json` to confirm it is served.
 5. Enable failure notifications for GitHub Actions in your own notification settings (Settings -> Notifications -> Actions). Notifications for scheduled runs go to the user who created the workflow, or the user who last changed or re-enabled its cron schedule (see [GitHub's documentation](https://docs.github.com/en/actions/concepts/workflows-and-actions/notifications-for-workflow-runs)), so check that this is you.
 6. **Required:** every 50 days, check in the Actions tab that the schedule is still running, and re-enable the workflow if it has stopped. GitHub disables scheduled workflows in a public repository after 60 days without repository activity. The `keepalive` job runs `gh workflow enable publish-feed.yml` on each scheduled run, but GitHub does not document that this resets the timer, so this manual check is mandatory. If `keepalive` fails, the run summary shows a `keepalive failed` warning annotation (the rest of the workflow is not affected); investigate when you see it.
 7. If runs fail with HTTP 429 (exit code 3) frequently, obtain an API key and add it as `LL2_API_KEY` (step 3). Run the workflow manually (workflow_dispatch) at most once per hour: scheduled runs (4 per hour) use up to 3 requests each, i.e. 12, and the free tier allows 15 requests per hour per IP.

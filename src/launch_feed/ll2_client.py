@@ -15,7 +15,7 @@ from launch_feed.errors import RateLimitedError, UpstreamError
 
 logger = logging.getLogger(__name__)
 
-USER_AGENT = "space-launch-feed (+https://github.com/kamkam/space-launch-feed)"
+USER_AGENT = "space-launch-feed (+https://github.com/Kam-IF/space-launch-feed)"
 PAGE_SIZE = 100
 MAX_RESPONSE_BYTES = 20 * 1024 * 1024  # detailed 1 ページ（100 件）の実測は約 2.7MB
 
