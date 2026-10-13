@@ -1,0 +1,1818 @@
+{
+  "results": [
+    {
+      "_case": "missing_id",
+      "name": "Test Rocket | Case 1",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 1,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 1,
+        "name": "Mission 1",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "missing_name",
+      "id": "00000000-0000-0000-0000-000000000002",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 2,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 2,
+        "name": "Mission 2",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "missing_net",
+      "id": "00000000-0000-0000-0000-000000000003",
+      "name": "Test Rocket | Case 3",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 3,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 3,
+        "name": "Mission 3",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "net_unparseable",
+      "id": "00000000-0000-0000-0000-000000000004",
+      "name": "Test Rocket | Case 4",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "not-a-date",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 4,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 4,
+        "name": "Mission 4",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "mission_null",
+      "id": "00000000-0000-0000-0000-000000000005",
+      "name": "Test Rocket | Case 5",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 5,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": null,
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "rocket_without_configuration",
+      "id": "00000000-0000-0000-0000-000000000006",
+      "name": "Test Rocket | Case 6",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 1
+      },
+      "mission": {
+        "id": 6,
+        "name": "Mission 6",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "window_start_numeric",
+      "id": "00000000-0000-0000-0000-000000000007",
+      "name": "Test Rocket | Case 7",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": 12345,
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 7,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 7,
+        "name": "Mission 7",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "vid_urls_null",
+      "id": "00000000-0000-0000-0000-000000000008",
+      "name": "Test Rocket | Case 8",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 8,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 8,
+        "name": "Mission 8",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": null,
+      "info_urls": []
+    },
+    {
+      "_case": "status_id_unknown",
+      "id": "00000000-0000-0000-0000-000000000009",
+      "name": "Test Rocket | Case 9",
+      "status": {
+        "id": 99,
+        "name": "Mystery",
+        "abbrev": "?"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 9,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 9,
+        "name": "Mission 9",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "status_missing",
+      "id": "00000000-0000-0000-0000-00000000000a",
+      "name": "Test Rocket | Case 10",
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 10,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 10,
+        "name": "Mission 10",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "net_precision_id_unknown",
+      "id": "00000000-0000-0000-0000-00000000000b",
+      "name": "Test Rocket | Case 11",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 42,
+        "name": "Weird",
+        "abbrev": "W"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 11,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 11,
+        "name": "Mission 11",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "net_precision_missing",
+      "id": "00000000-0000-0000-0000-00000000000c",
+      "name": "Test Rocket | Case 12",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 12,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 12,
+        "name": "Mission 12",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "precision_month",
+      "id": "00000000-0000-0000-0000-00000000000d",
+      "name": "Test Rocket | Case 13",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-12-01T00:00:00Z",
+      "net_precision": {
+        "id": 7,
+        "name": "Month",
+        "abbrev": "MON"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 13,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 13,
+        "name": "Mission 13",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "precision_quarter_q4",
+      "id": "00000000-0000-0000-0000-00000000000e",
+      "name": "Test Rocket | Case 14",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-15T00:00:00Z",
+      "net_precision": {
+        "id": 11,
+        "name": "Q4",
+        "abbrev": "Q4"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 14,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 14,
+        "name": "Mission 14",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "precision_year",
+      "id": "00000000-0000-0000-0000-00000000000f",
+      "name": "Test Rocket | Case 15",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2027-01-01T00:00:00Z",
+      "net_precision": {
+        "id": 14,
+        "name": "Year",
+        "abbrev": "YR"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 15,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 15,
+        "name": "Mission 15",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "lsp_country_empty",
+      "id": "00000000-0000-0000-0000-000000000010",
+      "name": "Test Rocket | Case 16",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 555,
+        "name": "NoCountry Inc",
+        "country": []
+      },
+      "rocket": {
+        "id": 16,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 16,
+        "name": "Mission 16",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "mission_agencies_overlap",
+      "id": "00000000-0000-0000-0000-000000000011",
+      "name": "Test Rocket | Case 17",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 17,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 17,
+        "name": "Mission 17",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 1001,
+            "name": "Agency A",
+            "country": [
+              {
+                "id": 1,
+                "name": "JP",
+                "alpha_2_code": "JP",
+                "alpha_3_code": "JP"
+              }
+            ]
+          },
+          {
+            "id": 1002,
+            "name": "Agency B",
+            "country": [
+              {
+                "id": 1,
+                "name": "JP",
+                "alpha_2_code": "JP",
+                "alpha_3_code": "JP"
+              },
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "japan_payload_us_pad",
+      "id": "00000000-0000-0000-0000-000000000012",
+      "name": "Test Rocket | Case 18",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 18,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 18,
+        "name": "Mission 18",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 1091,
+            "name": "ispace",
+            "country": [
+              {
+                "id": 1,
+                "name": "JP",
+                "alpha_2_code": "JP",
+                "alpha_3_code": "JP"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "h3_tanegashima",
+      "id": "00000000-0000-0000-0000-000000000013",
+      "name": "Test Rocket | Case 19",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 98,
+        "name": "Mitsubishi Heavy Industries",
+        "country": [
+          {
+            "id": 1,
+            "name": "JP",
+            "alpha_2_code": "JP",
+            "alpha_3_code": "JP"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 1,
+        "configuration": {
+          "id": 200,
+          "name": "H3",
+          "full_name": "H3-24L"
+        }
+      },
+      "mission": {
+        "id": 1,
+        "name": "H3 Test",
+        "type": "Earth Science",
+        "description": null,
+        "orbit": null,
+        "agencies": []
+      },
+      "pad": {
+        "id": 30,
+        "name": "Yoshinobu Launch Complex",
+        "country": {
+          "id": 1,
+          "name": "JP",
+          "alpha_2_code": "JP",
+          "alpha_3_code": "JP"
+        },
+        "location": {
+          "id": 26,
+          "name": "Tanegashima Space Center, Japan",
+          "country": {
+            "id": 1,
+            "name": "JP",
+            "alpha_2_code": "JP",
+            "alpha_3_code": "JP"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "invalid_country_codes",
+      "id": "00000000-0000-0000-0000-000000000014",
+      "name": "Test Rocket | Case 20",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 601,
+        "name": "Lower",
+        "country": [
+          {
+            "id": 1,
+            "name": "jp",
+            "alpha_2_code": "jp",
+            "alpha_3_code": "jp"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 20,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 20,
+        "name": "Mission 20",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 602,
+            "name": "Three",
+            "country": [
+              {
+                "id": 1,
+                "name": "USA",
+                "alpha_2_code": "USA",
+                "alpha_3_code": "USA"
+              }
+            ]
+          },
+          {
+            "id": 603,
+            "name": "Digit",
+            "country": [
+              {
+                "id": 1,
+                "name": "1A",
+                "alpha_2_code": "1A",
+                "alpha_3_code": "1A"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "fr",
+          "alpha_2_code": "fr",
+          "alpha_3_code": "fr"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "DEU",
+            "alpha_2_code": "DEU",
+            "alpha_3_code": "DEU"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [],
+      "info_urls": []
+    },
+    {
+      "_case": "links_mixed_schemes",
+      "id": "00000000-0000-0000-0000-000000000015",
+      "name": "Test Rocket | Case 21",
+      "status": {
+        "id": 1,
+        "name": "Go for Launch",
+        "abbrev": "Go"
+      },
+      "last_updated": "2026-10-10T00:00:00Z",
+      "net": "2026-11-01T12:00:00Z",
+      "net_precision": {
+        "id": 1,
+        "name": "Minute",
+        "abbrev": "MIN"
+      },
+      "window_start": "2026-11-01T12:00:00Z",
+      "window_end": "2026-11-01T13:00:00Z",
+      "launch_service_provider": {
+        "id": 121,
+        "name": "SpaceX",
+        "country": [
+          {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        ]
+      },
+      "rocket": {
+        "id": 21,
+        "configuration": {
+          "id": 164,
+          "name": "Falcon 9",
+          "full_name": "Falcon 9 Block 5"
+        }
+      },
+      "mission": {
+        "id": 21,
+        "name": "Mission 21",
+        "type": "Communications",
+        "description": "desc",
+        "orbit": {
+          "id": 8,
+          "name": "Low Earth Orbit"
+        },
+        "agencies": [
+          {
+            "id": 121,
+            "name": "SpaceX",
+            "country": [
+              {
+                "id": 1,
+                "name": "US",
+                "alpha_2_code": "US",
+                "alpha_3_code": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "pad": {
+        "id": 16,
+        "name": "Test Pad",
+        "country": {
+          "id": 1,
+          "name": "US",
+          "alpha_2_code": "US",
+          "alpha_3_code": "US"
+        },
+        "location": {
+          "id": 11,
+          "name": "Test Site, USA",
+          "country": {
+            "id": 1,
+            "name": "US",
+            "alpha_2_code": "US",
+            "alpha_3_code": "US"
+          }
+        }
+      },
+      "webcast_live": false,
+      "vid_urls": [
+        {
+          "url": "https://example.com/v",
+          "title": "https",
+          "source": "example.com"
+        },
+        {
+          "url": "http://example.com/v",
+          "title": "http",
+          "source": "example.com"
+        },
+        {
+          "url": "javascript:alert(1)",
+          "title": "js",
+          "source": "example.com"
+        },
+        {
+          "url": "ftp://example.com/v",
+          "title": "ftp",
+          "source": "example.com"
+        }
+      ],
+      "info_urls": [
+        {
+          "url": "https://example.com/i",
+          "title": "https",
+          "source": "example.com"
+        },
+        {
+          "url": "http://example.com/i",
+          "title": "http",
+          "source": "example.com"
+        },
+        {
+          "url": "javascript:alert(1)",
+          "title": "js",
+          "source": "example.com"
+        },
+        {
+          "url": "ftp://example.com/i",
+          "title": "ftp",
+          "source": "example.com"
+        }
+      ]
+    }
+  ]
+}

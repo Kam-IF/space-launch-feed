@@ -1,0 +1,295 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/space-launch-feed/launches.v1.schema.json",
+  "title": "Space Launch Feed v1",
+  "description": "打ち上げスケジュールフィード（/v1/launches.json）のスキーマ。全オブジェクトで未知のキーを許さない。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "source",
+    "launches"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "generatedAt": {
+      "$ref": "#/$defs/utcDateTime"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "url"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "$ref": "#/$defs/httpUrl"
+        }
+      }
+    },
+    "launches": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/launch"
+      }
+    }
+  },
+  "$defs": {
+    "utcDateTime": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"
+    },
+    "nullableUtcDateTime": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"
+    },
+    "httpUrl": {
+      "type": "string",
+      "pattern": "^https?://"
+    },
+    "countryCode": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "url",
+        "title",
+        "source"
+      ],
+      "properties": {
+        "url": {
+          "$ref": "#/$defs/httpUrl"
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "sourceId",
+        "sourceName"
+      ],
+      "properties": {
+        "code": {
+          "enum": [
+            "go",
+            "tbd",
+            "tbc",
+            "hold",
+            "inFlight",
+            "success",
+            "failure",
+            "partialFailure",
+            "deployed",
+            "unknown"
+          ]
+        },
+        "sourceId": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "sourceName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "countries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "launchSite",
+        "launchProvider",
+        "payloadOperator"
+      ],
+      "properties": {
+        "launchSite": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/countryCode"
+          },
+          "uniqueItems": true
+        },
+        "launchProvider": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/countryCode"
+          },
+          "uniqueItems": true
+        },
+        "payloadOperator": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/countryCode"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "launch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "missionName",
+        "missionDescription",
+        "missionType",
+        "orbitName",
+        "rocketName",
+        "providerName",
+        "padName",
+        "locationName",
+        "net",
+        "netPrecision",
+        "windowStart",
+        "windowEnd",
+        "status",
+        "webcastLive",
+        "videoUrls",
+        "infoUrls",
+        "countries",
+        "lastUpdated"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "missionName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "missionDescription": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "missionType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "orbitName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rocketName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "providerName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "padName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "locationName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "net": {
+          "$ref": "#/$defs/utcDateTime"
+        },
+        "netPrecision": {
+          "enum": [
+            "second",
+            "minute",
+            "hour",
+            "morning",
+            "afternoon",
+            "day",
+            "week",
+            "month",
+            "quarter",
+            "half",
+            "year",
+            "fiscalYear",
+            "decade",
+            "unknown"
+          ]
+        },
+        "windowStart": {
+          "$ref": "#/$defs/nullableUtcDateTime"
+        },
+        "windowEnd": {
+          "$ref": "#/$defs/nullableUtcDateTime"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "webcastLive": {
+          "type": "boolean"
+        },
+        "videoUrls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "infoUrls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "countries": {
+          "$ref": "#/$defs/countries"
+        },
+        "lastUpdated": {
+          "$ref": "#/$defs/nullableUtcDateTime"
+        }
+      }
+    }
+  }
+}
