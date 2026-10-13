@@ -23,7 +23,7 @@ feed stays online.
 
 ### Freshness and caching
 
-The workflow runs every 15 minutes (cron `7,22,37,52 * * * *`), but GitHub may delay scheduled runs by several minutes. GitHub Pages serves files with `Cache-Control: max-age=600`. In practice the feed can be up to about 25-30 minutes old. Consumers should check `generatedAt` rather than assume the feed is fresh.
+The workflow runs every 15 minutes (cron `8,23,38,53 * * * *`), but GitHub may delay scheduled runs by several minutes. GitHub Pages serves files with `Cache-Control: max-age=600`. In practice the feed can be up to about 25-30 minutes old. Consumers should check `generatedAt` rather than assume the feed is fresh.
 
 ## Data source and attribution
 
